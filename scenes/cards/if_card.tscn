@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scripts/card.gd" type="Script" id=1]
+[ext_resource path="res://scenes/cards/card.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/cards/if.png" type="Texture" id=3]
+
+[sub_resource type="PackedScene" id=1]
+_bundled = {
+"conn_count": 0,
+"conns": PoolIntArray(  ),
+"editable_instances": [  ],
+"names": PoolStringArray( "card", "Node2D", "script", "TextureRect", "TextureRect", "margin_right", "margin_bottom", "rect_scale", "__meta__" ),
+"node_count": 2,
+"node_paths": [ NodePath(".") ],
+"nodes": PoolIntArray( -1, -1, 1, 0, -1, 1, 2, 0, 0, 1073741824, 0, 4, 3, -1, 4, 5, 1, 6, 2, 7, 3, 8, 4, 0 ),
+"variants": [ ExtResource( 1 ), 60.0, 26.0, Vector2( 5, 5 ), {
+"_edit_use_anchors_": false
+} ],
+"version": 2
+}
+
+[node name="if_card" instance=ExtResource( 2 )]
+card = "if"
+materials = "single"
+
+[node name="TextureRect" parent="." index="0"]
+texture = ExtResource( 3 )
