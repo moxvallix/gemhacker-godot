@@ -9,8 +9,9 @@ export (int) var y_offset
 export (int) var x_start
 export (int) var y_start
 
-var cards = preload("res://scenes/cards/input_card.tscn")
 var exit_loop
+
+signal card_created(card)
 
 var trash_zone = Vector2(-1, 6)
 
@@ -27,7 +28,9 @@ var board = []
 var possible_cards = [
 	preload("res://scenes/cards/input_card.tscn"),
 	preload("res://scenes/cards/craft_card.tscn"),
-	preload("res://scenes/cards/if_card.tscn")
+	preload("res://scenes/cards/if_card.tscn"),
+	preload("res://scenes/cards/or_card.tscn"),
+	preload("res://scenes/cards/not_card.tscn"),
 ]
 
 # Called when the node enters the scene tree for the first time.
@@ -41,6 +44,7 @@ func create_card(card):
 		var current_card = possible_cards[loop].instance()
 		if current_card.card == card:
 			spawn_card(current_card)
+			emit_signal("card_created", current_card)
 
 func make_2d_array():
 	var array = []
@@ -85,7 +89,6 @@ func touch_input():
 				being_dragged = current_tile
 				board[click_pos.x][click_pos.y] = null
 			if click_pos == trash_zone && shifting == true:
-				print("ues")
 				for n in get_node(".").get_children():
 					get_node(".").remove_child(n)
 					n.queue_free()
@@ -127,7 +130,7 @@ func drop(object):
 		var board_pos = board[grid_pos.x][grid_pos.y]
 		if board_pos == null:
 			board[grid_pos.x][grid_pos.y] = object
-			object.position = grid_to_pixel(grid_pos.x, grid_pos.y)
+			object.move(grid_to_pixel(grid_pos.x, grid_pos.y))
 			dragging = false
 			object.z_index = 1
 		if board_pos != null:
@@ -140,7 +143,7 @@ func drop(object):
 
 func send_back(object):
 	dragging = false
-	object.position = initial_pos
+	object.move(initial_pos)
 	board[click_pos.x][click_pos.y] = object
 	object.z_index = 1
 

@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/background.png" type="Texture" id=1]
-[ext_resource path="res://scenes/input_button.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/buttons/input_button.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/grid.gd" type="Script" id=3]
-[ext_resource path="res://scenes/craft_button.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/if_button.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/buttons/craft_button.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/buttons/or_button.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/buttons/if_button.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/ui/run_button.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/buttons/not_button.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scripts/buttons/buttons-node.gd" type="Script" id=9]
 
 [node name="game_window" type="Node2D"]
 
@@ -22,6 +26,7 @@ __meta__ = {
 [node name="buttons" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
+script = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -35,6 +40,22 @@ position = Vector2( 39.985, 694.992 )
 [node name="if_button" parent="buttons" instance=ExtResource( 6 )]
 position = Vector2( 174.984, 34.995 )
 
+[node name="or_button" parent="buttons" instance=ExtResource( 5 )]
+position = Vector2( 40, 200 )
+
+[node name="not_button" parent="buttons" instance=ExtResource( 8 )]
+position = Vector2( 175, 200 )
+
+[node name="ui" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="run_button" parent="ui" instance=ExtResource( 7 )]
+position = Vector2( 480, 30 )
+
 [node name="grid" type="Node2D" parent="."]
 script = ExtResource( 3 )
 imgscale = 5.0
@@ -44,3 +65,5 @@ x_offset = 60
 y_offset = 26
 x_start = 72
 y_start = 26
+
+[connection signal="card_created" from="grid" to="buttons" method="_on_grid_card_created"]

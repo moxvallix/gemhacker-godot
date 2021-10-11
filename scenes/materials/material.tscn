@@ -1,7 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://scripts/materials/material.gd" type="Script" id=1]
-[ext_resource path="res://scenes/material.tscn" type="PackedScene" id=2]
 
-[node name="material" instance=ExtResource( 2 )]
+[node name="material" type="Node2D"]
 script = ExtResource( 1 )
+
+[node name="TextureButton" type="TextureButton" parent="."]
+margin_right = 16.0
+margin_bottom = 16.0
+rect_scale = Vector2( 5, 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]

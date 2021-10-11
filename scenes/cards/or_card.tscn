@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/cards/card.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/cards/or.png" type="Texture" id=2]
+
+[node name="or_card" instance=ExtResource( 1 )]
+card = "or"
+card_type = "double"
+
+[node name="TextureRect" parent="." index="0"]
+texture = ExtResource( 2 )

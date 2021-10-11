@@ -5,6 +5,7 @@
 
 [node name="craft_card" instance=ExtResource( 2 )]
 card = "craft"
+card_type = "action"
 
 [node name="TextureRect" parent="." index="0"]
 texture = ExtResource( 1 )
