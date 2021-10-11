@@ -12,6 +12,7 @@ export (int) var y_start
 var exit_loop
 
 signal card_created(card)
+signal card_destroyed(card)
 
 var trash_zone = Vector2(-1, 6)
 
@@ -28,9 +29,14 @@ var board = []
 var possible_cards = [
 	preload("res://scenes/cards/input_card.tscn"),
 	preload("res://scenes/cards/craft_card.tscn"),
+	preload("res://scenes/cards/discard_card.tscn"),
 	preload("res://scenes/cards/if_card.tscn"),
 	preload("res://scenes/cards/or_card.tscn"),
 	preload("res://scenes/cards/not_card.tscn"),
+	preload("res://scenes/cards/max_card.tscn"),
+	preload("res://scenes/cards/lift_card.tscn"),
+	preload("res://scenes/cards/pipe_card.tscn"),
+	preload("res://scenes/cards/jump_card.tscn"),
 ]
 
 # Called when the node enters the scene tree for the first time.
@@ -89,9 +95,10 @@ func touch_input():
 				being_dragged = current_tile
 				board[click_pos.x][click_pos.y] = null
 			if click_pos == trash_zone && shifting == true:
-				for n in get_node(".").get_children():
-					get_node(".").remove_child(n)
-					n.queue_free()
+				for object in get_node(".").get_children():
+					emit_signal("card_destroyed", object)
+					get_node(".").remove_child(object)
+					object.queue_free()
 				board = make_2d_array()
 
 	if Input.is_action_just_released("ui_touch"):
@@ -137,6 +144,7 @@ func drop(object):
 			send_back(object)
 	elif grid_pos == trash_zone:
 		dragging = false
+		emit_signal("card_destroyed", object)
 		object.queue_free()
 	else:
 		send_back(object)

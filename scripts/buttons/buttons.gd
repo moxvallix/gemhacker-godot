@@ -5,18 +5,28 @@ export (String) var card
 var enabled = true
 
 # Called when the node enters the scene tree for the first time.
+var state
+
 func _ready():
-	pass # Replace with function body.
+	var root = get_tree().get_root()
+	root.connect("state_broadcast", self, "_on_state_broadcast")
+
+func _on_state_broadcast(broadcast_state):
+	state = broadcast_state
+	print(state)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if enabled:
+		self.modulate = Color(1, 1, 1)
 	if !enabled:
 		self.modulate = Color(0.3, 0.3, 0.3)
 
 func _on_button_mouse_entered():
-	if enabled:
-		var button = get_node("button")
-		button.modulate = Color(0, 0.95, 0)
+	if state != "running":
+		if enabled:
+			var button = get_node("button")
+			button.modulate = Color(0, 0.95, 0)
 
 func _on_button_mouse_exited():
 	var button = get_node("button")
@@ -25,7 +35,3 @@ func _on_button_mouse_exited():
 func _on_button_pressed():
 	if enabled:
 		get_parent().get_parent().get_node("grid").create_card(card)
-
-
-func _on_grid_card_created(card, type):
-	pass # Replace with function body.

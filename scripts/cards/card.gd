@@ -25,9 +25,6 @@ func _ready():
 	if card_type == "double":
 		add_material(material_1_scene.instance(), material_1_pos)
 		add_material(material_2_scene.instance(), material_2_pos)
-	if card_type == "action":
-		pass
-	pass # Replace with function body.
 
 func add_material(material, position):
 	add_child(material)
