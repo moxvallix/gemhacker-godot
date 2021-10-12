@@ -7,6 +7,8 @@ export (int) var texture_scale
 export (int) var x_offset
 export (int) var y_offset
 
+signal run_input(texture, input)
+
 var global
 var input
 
@@ -29,7 +31,6 @@ func _ready():
 	input_row = make_2d_array()
 	gen_material()
 	spawn_material()
-	pass # Replace with function body.
 
 func make_2d_array():
 	var array = []
@@ -56,6 +57,12 @@ func spawn_material():
 		gem_scene.input = gem[1]
 		gem_scene.position = Vector2(pos_to_pixel(position), (y_offset * texture_scale))
 		position += 1
+
+func run_input():
+	var input_round = global.input_round
+	var texture = input_row[input_round][0]
+	var type = input_row[input_round][1]
+	emit_signal(texture, type)
 
 func pos_to_pixel(pos):
 	var x = (pos * texture_width * texture_scale) - (x_offset * texture_scale)

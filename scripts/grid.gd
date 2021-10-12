@@ -119,11 +119,11 @@ func key_input():
 func misc():
 	var mouse_in_grid = pixel_to_grid(get_global_mouse_position())
 	if mouse_in_grid == trash_zone && shifting == true:
-		for n in get_node(".").get_children():
+		for n in self.get_children():
 			delete_ready = true
 			n.modulate = Color(0.75, 0, 0)
 	elif (shifting == false || mouse_in_grid != trash_zone) && delete_ready == true:
-		for n in get_node(".").get_children():
+		for n in self.get_children():
 			n.modulate = Color(1, 1, 1)
 
 func drag(object):
@@ -173,3 +173,15 @@ func _process(_delta):
 		misc()
 		if dragging:
 			drag(being_dragged)
+
+func _on_input_run_input(texture, input):
+	var input_scene = preload("res://scenes/materials/input.tscn")
+	var gem_scene = input_scene.instance()
+	for placed in self.get_children():
+		if placed.card_type == "action" && placed.card == "input":
+			placed.add_child(gem_scene)
+			gem_scene.input = input
+			gem_scene.get_child(0).set_texture(texture)
+			
+			
+	pass # Replace with function body.
