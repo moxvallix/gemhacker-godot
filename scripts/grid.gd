@@ -39,8 +39,13 @@ var possible_cards = [
 	preload("res://scenes/cards/jump_card.tscn"),
 ]
 
+var global
+var state
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	global = get_node("/root/Global")
+	state = global.state
 	board = make_2d_array()
 	OS.set_window_maximized(true)
 #	spawn_pieces()
@@ -120,7 +125,6 @@ func misc():
 	elif (shifting == false || mouse_in_grid != trash_zone) && delete_ready == true:
 		for n in get_node(".").get_children():
 			n.modulate = Color(1, 1, 1)
-		delete_ready == false
 
 func drag(object):
 	object.position = get_global_mouse_position() - (mouse_pos - initial_pos)
@@ -161,9 +165,11 @@ func is_in_grid(pos):
 			return true
 	return false
 
-func _process(delta):
-	touch_input()
-	key_input()
-	misc()
-	if dragging:
-		drag(being_dragged)
+func _process(_delta):
+	state = global.state
+	if state != "running":
+		touch_input()
+		key_input()
+		misc()
+		if dragging:
+			drag(being_dragged)

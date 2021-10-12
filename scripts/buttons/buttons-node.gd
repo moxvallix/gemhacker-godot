@@ -5,15 +5,8 @@ extends Control
 # var a = 2
 # var b = "text"
 
-var state
-
 func _ready():
-	var root = get_tree().get_root()
-	root.connect("state_broadcast", self, "_on_state_broadcast")
-
-func _on_state_broadcast(broadcast_state):
-	state = broadcast_state
-
+	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

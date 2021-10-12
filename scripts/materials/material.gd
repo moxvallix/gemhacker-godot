@@ -10,8 +10,13 @@ var materials = [
 	preload("res://assets/materials/amythest.png"),
 ]
 
+var global
+var state
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	global = get_node("/root/Global")
+	state = global.state
 	update_materials()
 	pass # Replace with function body.
 
@@ -27,8 +32,9 @@ func update_materials():
 	get_node("TextureButton").set_normal_texture(materials[material_id])
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(_delta):
+	state = global.state
 
 func _on_TextureButton_pressed():
-	on_click()
+	if state != "running":
+		on_click()
