@@ -62,7 +62,7 @@ func run_input():
 	var input_round = global.input_round
 	var texture = input_row[input_round][0]
 	var type = input_row[input_round][1]
-	emit_signal(texture, type)
+	emit_signal("run_input", texture, type)
 
 func pos_to_pixel(pos):
 	var x = (pos * texture_width * texture_scale) - (x_offset * texture_scale)
@@ -71,3 +71,6 @@ func pos_to_pixel(pos):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+func _on_run_button_running():
+	run_input()

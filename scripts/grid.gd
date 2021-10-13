@@ -183,5 +183,3 @@ func _on_input_run_input(texture, input):
 			gem_scene.input = input
 			gem_scene.get_child(0).set_texture(texture)
 			
-			
-	pass # Replace with function body.

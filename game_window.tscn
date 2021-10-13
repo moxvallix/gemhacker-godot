@@ -101,6 +101,7 @@ texture_width = 15
 texture_scale = 5
 y_offset = -1
 
+[connection signal="running" from="ui/run_button" to="input" method="_on_run_button_running"]
 [connection signal="card_created" from="grid" to="buttons" method="_on_grid_card_created"]
 [connection signal="card_destroyed" from="grid" to="buttons" method="_on_grid_card_destroyed"]
 [connection signal="run_input" from="input" to="grid" method="_on_input_run_input"]

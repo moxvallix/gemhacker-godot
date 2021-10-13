@@ -3,6 +3,8 @@ extends Node2D
 var global
 var state
 
+signal running
+
 var stop_texture = preload("res://assets/ui/stop.png")
 var run_texture = preload("res://assets/ui/run.png")
 
@@ -21,6 +23,7 @@ func _process(_delta):
 func _on_TextureButton_pressed():
 	if state != "running":
 		global.state = "running"
+		emit_signal("running")
 	elif state == "running":
 		global.state = "none"
 
